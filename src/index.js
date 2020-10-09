@@ -4,14 +4,23 @@ import './index.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.css"
 import App from './App';
+import {BrowserRouter, Link, Route} from "react-router-dom";
 import * as serviceWorker from './serviceWorker';
-import CourseListComponent from './components/CourseListComponent'
+import CourseListComponent from './components/CourseListComponent';
+import { CourseEditor } from './components/CourseEditor';
 
 ReactDOM.render(
   // <React.StrictMode>
   //   <App />
   // </React.StrictMode>
-  <CourseListComponent/>
+  <BrowserRouter>
+    <Link to="/courses">Courses</Link>
+    
+
+
+    <Route path="/courses" exact component={CourseListComponent}/>
+    <Route path="/edit/:courseId" exact component={CourseEditor}/>
+  </BrowserRouter>
   ,
   document.getElementById('root')
 );

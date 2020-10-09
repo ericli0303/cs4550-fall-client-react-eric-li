@@ -1,6 +1,7 @@
 import React from "react";
 import courseService from "../services/CourseService";
 import CourseListComponent from "./CourseListComponent";
+import {BrowserRouter, Link, Route} from "react-router-dom";
 
 
 class CourseRowComponent extends React.Component {
@@ -33,9 +34,9 @@ class CourseRowComponent extends React.Component {
                 <td className="priority-1">
                     {
                         !this.state.editing &&
-                        <a href="../courseEditor/courseEditor.template.client.html">
+                        <Link to={`/edit/${this.state.course._id}`}>
                             <i className="fas fa-file"></i>{this.state.course.title}
-                        </a>
+                        </Link>
                     }
                     {
                         this.state.editing &&
