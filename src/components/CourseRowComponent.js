@@ -1,6 +1,6 @@
 import React from "react";
 import courseService from "../services/CourseService";
-import CourseListComponent from "./CourseListComponent";
+import CourseTableContainer from "../containers/CourseTableContainer";
 import {BrowserRouter, Link, Route} from "react-router-dom";
 
 
@@ -26,7 +26,7 @@ class CourseRowComponent extends React.Component {
 
     updateCourse = () => {
         this.setState({ editing: false })
-        courseService.updateCourse(this.state.course._id, this.state.course)
+        this.props.updateCourse(this.state.course._id, this.state.course)
     }
     render() {
         return (

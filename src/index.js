@@ -6,8 +6,9 @@ import "@fortawesome/fontawesome-free/css/all.css"
 import App from './App';
 import {BrowserRouter, Link, Route} from "react-router-dom";
 import * as serviceWorker from './serviceWorker';
-import CourseListComponent from './components/CourseListComponent';
-import { CourseEditor } from './components/CourseEditor';
+import CourseTableContainer from './containers/CourseTableContainer';
+import CourseManagerContainer from './containers/CourseManagerContainer';
+import { CourseEditor } from './components/CourseEditorComponent';
 
 ReactDOM.render(
   // <React.StrictMode>
@@ -18,8 +19,8 @@ ReactDOM.render(
     
 
 
-    <Route path="/courses" exact component={CourseListComponent}/>
-    <Route path="/edit/:courseId" exact component={CourseEditor}/>
+    <Route path="/courses" exact component={CourseManagerContainer}/>
+    <Route path="/edit/:courseId" exact component={CourseEditorComponent}/>
   </BrowserRouter>
   ,
   document.getElementById('root')

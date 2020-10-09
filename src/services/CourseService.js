@@ -4,6 +4,13 @@ const url = 'https://wbdv-generic-server.herokuapp.com/api/ericli0303/courses'
 export const findAllCourses = () =>
     fetch(url).then(response => response.json())
 
+
+export const findCourseById = (courseId) =>
+    fetch(`${url}/${courseId}`, {
+        method: "GET"
+    })
+        .then(response => response.json())
+
 export const deleteCourse = (courseId) =>
     fetch(`${url}/${courseId}`, { method: "DELETE" })
         .then(response => response.json())
@@ -34,5 +41,6 @@ export default {
     findAllCourses,
     deleteCourse,
     createCourse,
-    updateCourse
+    updateCourse,
+    findCourseById
 }

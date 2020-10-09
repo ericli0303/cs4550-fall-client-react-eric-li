@@ -1,48 +1,26 @@
 import React from "react";
-import CourseRowComponent from "./CourseRowComponent";
+import CourseRowComponent from "../components/CourseRowComponent";
 import courseService from "../services/CourseService";
 import { act } from "react-dom/test-utils";
 
-class CourseListComponent extends React.Component {
+class CourseTableContainer extends React.Component {
     state = {
-        courses: []
+        courses: this.props.courses
+    }
+    constructor(props) {
+        super(props)
+        // console.log(props.courses)
     }
 
-    componentDidMount() {
-        courseService.findAllCourses()
-            .then(courses => this.setState({
-                courses: courses
-            }))
-    }
-
-    createCourse = () => {
-        const newCourse = {
-            title: 'New Course',
-            owner: 'me',
-            lastUpdated: 'today'
-        }
-        console.log(newCourse)
-
-        courseService.createCourse(newCourse).then(actualCourse =>
-            this.setState(prevState => ({
-                courses: [
-                    ...prevState.courses, actualCourse
-                ]
-            })))
-    }
-
-    deleteCourse = (course) => {
-        courseService.deleteCourse(course._id).then(status =>
-            this.setState(prevState => ({
-                courses: prevState.courses.filter(c => c._id !== course._id)
-            }))
-        )
-    }
+    // deleteCourse = (course) => {
+    //     courseService.deleteCourse(course._id).then(status =>
+    //         this.setState(prevState => ({
+    //             courses: prevState.courses.filter(c => c._id !== course._id)
+    //         }))
+    //     )
+    // }
     render() {
         return (
-            <div>
-                <h1>Course List</h1>
-                <button onClick={this.createCourse}>Add Course</button>
                 <div className="container content">
                     <table id="courses" className="table table-hover" cellspacing="0" width="100%">
                         <thead>
@@ -58,20 +36,20 @@ class CourseListComponent extends React.Component {
 
                         <tbody>
                             {
-                                this.state.courses.map(course =>
+                                this.props.courses.map(course =>
                                     <CourseRowComponent
                                         key={course._id}
                                         course={course}
-                                        deleteCourse={this.deleteCourse} />
+                                        deleteCourse={this.props.deleteCourse} 
+                                        updateCourse={this.props.updateCourse}/>
                                 )
                             }
                         </tbody>
                     </table>
                 </div>
-            </div>
         )
     }
 }
 
 
-export default CourseListComponent
+export default CourseTableContainer
