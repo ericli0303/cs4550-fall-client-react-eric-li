@@ -8,14 +8,14 @@ import {BrowserRouter, Link, Route} from "react-router-dom";
 import * as serviceWorker from './serviceWorker';
 import CourseTableContainer from './containers/CourseTableContainer';
 import CourseManagerContainer from './containers/CourseManagerContainer';
-import { CourseEditor } from './components/CourseEditorComponent';
+import { CourseEditorComponent } from './components/CourseEditorComponent';
 
 ReactDOM.render(
   // <React.StrictMode>
   //   <App />
   // </React.StrictMode>
   <BrowserRouter>
-    <Link to="/courses">Courses</Link>
+    {/* <Link to="/courses">Courses</Link> */}
     
 
 

@@ -1,41 +1,12 @@
 import { buildQueries } from "@testing-library/react";
+import "./CourseEditorComponent.css"
 import React from "react";
 import {findCourseById} from "../services/CourseService";
 import LessonTabsComponent from "./LessonTabsComponent";
+import ModuleListComponent from "./ModuleListComponent";
+import TopicPillsComponent from "./TopicPillsComponent";
 
-export class CourseEditor extends React.Component {
-    state ={
-        course:{
-            _id:"",
-            title:""
-        },
-        lessons:[
-            "Build",
-            "Pages",
-            "Theme",
-            "Store",
-            "App",
-            "Setting"
-        ],
-        modules:[
-            "Module 1",
-            "Module 2",
-            "Module 3",
-            "Module 4",
-            "Module 5",
-            "Module 6",
-            "Module 7",
-            "+"
-        ],
-        topics:[
-            "Topic",
-            "Topic",
-            "Topic",
-            "Topic",
-            "+"
-        ]
-    }
-
+export class CourseEditorComponent extends React.Component {
     componentDidMount(){
         console.log(this.props)
         const courseId = this.props.match.params.courseId
@@ -46,8 +17,11 @@ export class CourseEditor extends React.Component {
     render() {
         return (
             <div>
-                <LessonTabsComponent
-                lessons={this.state.lessons}/>
+                <LessonTabsComponent/>
+                <div class="row">
+                    <ModuleListComponent/>
+                    <TopicPillsComponent/>
+                </div>
             </div>
         )
     }

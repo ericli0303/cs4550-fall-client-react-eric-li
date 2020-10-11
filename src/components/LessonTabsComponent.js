@@ -4,9 +4,6 @@ const LessonTabsComponent = ({lessons}) =>
 <h2>
 <ul class="nav nav-tabs navbar-dark bg-dark">
     <a class="wbdv-title" href="#">Course Editor</a>
-    
-
-
     <li class="nav-item">
         <a href="#" class="nav-link">Build</a>
     </li>
