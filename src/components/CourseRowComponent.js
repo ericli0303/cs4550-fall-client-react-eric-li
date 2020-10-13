@@ -1,7 +1,7 @@
 import React from "react";
 import courseService from "../services/CourseService";
 import CourseTableContainer from "../containers/CourseTableContainer";
-import {BrowserRouter, Link, Route} from "react-router-dom";
+import { BrowserRouter, Link, Route } from "react-router-dom";
 
 
 class CourseRowComponent extends React.Component {
@@ -13,7 +13,7 @@ class CourseRowComponent extends React.Component {
         super(props)
     }
 
-    updateTitle =(event) => {
+    updateTitle = (event) => {
         const newTitle = event.target.value
         const course = {
             ...this.state.course
@@ -50,18 +50,18 @@ class CourseRowComponent extends React.Component {
                 <td className="priority-2"></td>
                 {
                     this.state.editing &&
-                    <td className="priority-2">
+                    <td className="priority-1">
                         <button onClick={this.updateCourse}>
-                            Save
-                    </button>
+                            <i className="fa fa-check" aria-hidden="true"></i>
+                        </button>
                     </td>
                 }
                 {
                     !this.state.editing &&
-                    <td className="priority-2">
+                    <td className="priority-1">
                         <button onClick={() => this.setState({ editing: true })}>
-                            Edit
-                    </button>
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </button>
                     </td>
                 }
                 {
