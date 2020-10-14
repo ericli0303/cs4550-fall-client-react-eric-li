@@ -1,14 +1,16 @@
 import React from "react";
 import "./CourseManagerContainer.css"
 import CourseRowComponent from "../components/CourseRowComponent";
-import CourseTableContainer from "./CourseTableContainer";
+import CourseTableComponent from "../components/CourseTableComponent";
+import CourseGridComponent from "../components/CourseGridComponent"
 import courseService from "../services/CourseService";
 import { act } from "react-dom/test-utils";
 
 class CourseManagerContainer extends React.Component {
     state = {
         courses: [],
-        title: ""
+        title: "",
+        isTable: true
     }
 
     componentDidMount() {
@@ -31,7 +33,8 @@ class CourseManagerContainer extends React.Component {
             this.setState(prevState => ({
                 courses: [
                     ...prevState.courses, actualCourse
-                ]
+                ],
+                title: ""
             })))
     }
 
@@ -43,8 +46,26 @@ class CourseManagerContainer extends React.Component {
         )
     }
 
+    updateTitle = (course, number) => {
+        console.log(course)
+        const newCourses = {
+            ...this.state.courses
+        }
+        console.log(newCourses)
+        newCourses[number] = course
+        this.setState({
+            courses: 
+                newCourses
+        })
+    }
+
     updateCourse = (courseId, course) => {
         courseService.updateCourse(courseId, course)
+        .then(status => {
+        this.setState(prevState => ({
+            courses: prevState.courses.map(c => c._id === courseId?course: c)
+        }))
+    })
     }
 
     enterTitle = (event) => {
@@ -54,6 +75,12 @@ class CourseManagerContainer extends React.Component {
         })
     }
 
+    changeDisplay = () => {
+        this.setState(prevState => ({
+            isTable: !prevState.isTable
+        }))
+    }
+
     render() {
         return (
             <div className="">
@@ -61,7 +88,7 @@ class CourseManagerContainer extends React.Component {
                 <nav class="navbar sticky-top navbar-dark bg-primary">
                     <a class="navbar-brand "> <i class="fa fa-bars" aria-hidden="true"></i>  Course Manager</a>
                     <div class="input-group mb-3">
-                        <input type="text" onChange={this.enterTitle} class="form-control" placeholder="New Course Title" aria-label="Recipient's username" aria-describedby="basic-addon2" />
+                        <input type="text" value={this.state.title} onChange={this.enterTitle} class="form-control" placeholder="New Course Title" aria-label="Recipient's username" aria-describedby="basic-addon2" />
                         <div class="input-group-append">
                             <button class="btn btn-outline-success" onClick={this.createCourse} type="button"><i className="fa fa-plus-circle"
                             aria-hidden="true"></i></button>
@@ -73,10 +100,24 @@ class CourseManagerContainer extends React.Component {
                             aria-hidden="true"></i></button>
                     </form> */}
                 </nav>
-                <CourseTableContainer
+                {
+                    this.state.isTable &&
+                    <CourseTableComponent
                     courses={this.state.courses}
                     deleteCourse={this.deleteCourse}
-                    updateCourse={this.updateCourse} />
+                    updateCourse={this.updateCourse} 
+                    changeDisplay={this.changeDisplay}
+                    updateTitle={this.updateTitle}/>
+                }
+                {
+                    !this.state.isTable &&
+                    <CourseGridComponent
+                    courses={this.state.courses}
+                    deleteCourse={this.deleteCourse}
+                    updateCourse={this.updateCourse} 
+                    changeDisplay={this.changeDisplay}
+                    updateTitle={this.updateTitle}/>
+                }
 
             </div>
         )

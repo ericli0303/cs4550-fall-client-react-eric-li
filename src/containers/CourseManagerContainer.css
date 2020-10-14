@@ -1,11 +1,11 @@
 
-@media screen and (max-width: 1400px) and (min-width: 1000px) {
+@media screen and (max-width: 768px) and (min-width: 600px) {
     .priority-3{
         display:none;
     }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 600px) {
     .priority-3{
         display:none;
     }
@@ -14,3 +14,11 @@
     }
 
 }
+
+/* .course-row {
+    background-color: aqua;
+} */
+/* 
+$('#myTable tbody tr').click(function() {
+    $(this).addClass('bg-success').siblings().removeClass('bg-success');
+}); */

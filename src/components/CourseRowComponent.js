@@ -1,13 +1,14 @@
 import React from "react";
 import courseService from "../services/CourseService";
-import CourseTableContainer from "../containers/CourseTableContainer";
+import CourseTableComponent from "./CourseTableComponent";
 import { BrowserRouter, Link, Route } from "react-router-dom";
 
 
 class CourseRowComponent extends React.Component {
     state = {
         editing: false,
-        course: this.props.course
+        course: this.props.course,
+        color: ""
     }
     constructor(props) {
         super(props)
@@ -22,20 +23,28 @@ class CourseRowComponent extends React.Component {
         this.setState({
             course: course
         })
+        // this.props.updateTitle(course)
     }
 
     updateCourse = () => {
         this.setState({ editing: false })
         this.props.updateCourse(this.state.course._id, this.state.course)
     }
+
+    changeColor = () => {
+        this.setState({
+            color: "aquamarine"
+        })
+    }
+
     render() {
         return (
-            <tr>
+            <tr className="course-row" style={{ backgroundColor: this.state.color }} onClick={this.changeColor}>
                 <td className="priority-1">
                     {
                         !this.state.editing &&
                         <Link to={`/edit/${this.state.course._id}`}>
-                            <i className="fas fa-file"></i>{this.state.course.title}
+                            <i class="fa fa-file-text" aria-hidden="true"></i> {this.state.course.title}
                         </Link>
                     }
                     {
@@ -59,17 +68,13 @@ class CourseRowComponent extends React.Component {
                 {
                     !this.state.editing &&
                     <td className="priority-1">
-                        <button onClick={() => this.setState({ editing: true })}>
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                        </button>
+                        <i className="fa fa-pencil" onClick={() => this.setState({ editing: true })} aria-hidden="true"></i>
                     </td>
                 }
                 {
                     !this.state.editing &&
                     <td className="priority-1">
-                        <button onClick={() => this.props.deleteCourse(this.props.course)}>
-                            <i className="fa fa-times" aria-hidden="true"></i>
-                        </button>
+                        <i class="fa fa-trash" onClick={() => this.props.deleteCourse(this.props.course)} aria-hidden="true"></i>
                     </td>
                 }
             </tr>
