@@ -1,45 +1,33 @@
+import {
+    DELETE_MODULE,
+    CREATE_MODULE,
+    UPDATE_MODULE,
+    FIND_MODULE,
+    FIND_MODULE_FOR_COURSE
+
+  } from "../actions/moduleActions"
+
 const initialState = {
-    modules: [
-        {
-            _id:"123",
-            title: "React.js",
-            editing: false
-        },
-        {
-            _id:"124",
-            title: "Redux.js",
-            editing: true
-        },
-        {
-            _id:"125",
-            title: "java.js",
-            editing: false
-        },
-        {
-            _id:"126",
-            title: "Others.js",
-            editing: false
-        }
-    ]
+    modules: []
 }
 
 
 const moduleReducer = (state=initialState, action) => {
     switch (action.type) {
-        case "CREATE_MODULE":
+        case CREATE_MODULE:
             return {
-                modules: [...state.modules, {
-                    _id: (Date.now()) + "",
-                    title: "New Module"
-                }]
+                modules: [...state.modules, action.module]
             }
-        case "FIND_MODULE_FOR_COURSE":
-        case "FIND_MODULE":
-        case "UPDATE_MODULE":
+        case FIND_MODULE_FOR_COURSE:
+            return {
+                modules: action.modules
+            }
+        case FIND_MODULE:
+        case UPDATE_MODULE:
             return {
                 modules: state.modules.map(module => module._id === action.module._id ? action.module : module)
             }
-        case "DELETE_MODULE":
+        case DELETE_MODULE:
             return {
                 modules: state.modules.filter(module => module._id !== action.module._id)
             }

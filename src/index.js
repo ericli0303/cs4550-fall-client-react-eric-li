@@ -11,12 +11,14 @@ import {combineReducers, createStore} from "redux";
 import * as serviceWorker from './serviceWorker';
 import CourseTableContainer from './components/CourseTableComponent';
 import CourseManagerContainer from './containers/CourseManagerContainer';
-import { CourseEditorComponent } from './components/CourseEditorComponent';
+import CourseEditorComponent from './components/CourseEditorComponent';
 import HomeComponent from "./components/HomeComponent";
 import moduleReducer from "./reducers/moduleReducer"
+import courseReducer from "./reducers/courseReducer"
 
 const rootReducer = combineReducers({
-  moduleReducer
+  moduleReducer, 
+  courseReducer
 })
 
 const store = createStore(rootReducer)

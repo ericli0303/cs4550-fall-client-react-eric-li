@@ -1,7 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
+import {
+  deleteModule,
+  createModule,
+  updateModule
+} from "../actions/moduleActions"
 
-const ModuleListComponent = ({ modules = [], deleteModule, createModule, updateModule}) =>
+const ModuleListComponent = (
+  { course, modules = [],
+  deleteModule, createModule, updateModule}) =>
 
   <div class="container col-4">
     <ul class="list-group">
@@ -34,7 +41,7 @@ const ModuleListComponent = ({ modules = [], deleteModule, createModule, updateM
       <br />
       <br />
       <form class="form-inline my-2 my-lg-0 right-pad-20">
-        <button class="btn btn-outline-success my-2 my-sm-0 wbdv-add-page" onClick={createModule} type="submit">
+        <button class="btn btn-outline-success my-2 my-sm-0 wbdv-add-page" onClick={() => createModule(course, {title: "New Module"})} type="button">
           <i class="fa fa-plus" aria-hidden="true"></i>
         </button>
       </form>
@@ -44,22 +51,14 @@ const ModuleListComponent = ({ modules = [], deleteModule, createModule, updateM
 // export default ModuleListComponent
 
 const stateToPropertyMapper = (state) => ({
-  modules: state.moduleReducer.modules
+  modules: state.moduleReducer.modules,
+  course: state.courseReducer.course
 })
 
 const propertyToDispatchMapper = (dispatch) => ({
-  deleteModule: (module) => dispatch({
-    type: "DELETE_MODULE",
-    module
-  }),
-  createModule: () => dispatch({
-    type: "CREATE_MODULE",
-
-  }),
-  updateModule: (module) => dispatch({
-    type: "UPDATE_MODULE",
-    module
-  })
+  deleteModule: (module) => deleteModule(dispatch, module),
+  createModule: (course, module) => createModule(dispatch, course, module),
+  updateModule: (module) => updateModule(dispatch, module)
 })
 
 export default connect
