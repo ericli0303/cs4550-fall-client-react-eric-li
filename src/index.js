@@ -5,27 +5,31 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // import "@fortawesome/fontawesome-free/css/all.css"
 // import "@fortawesome/fontawesome-free/css/all.min.css"
 import "font-awesome/css/font-awesome.min.css"
-import App from './App';
 import {BrowserRouter, Link, Route} from "react-router-dom";
+import {Provider} from "react-redux";
+import {combineReducers, createStore} from "redux";
 import * as serviceWorker from './serviceWorker';
 import CourseTableContainer from './components/CourseTableComponent';
 import CourseManagerContainer from './containers/CourseManagerContainer';
 import { CourseEditorComponent } from './components/CourseEditorComponent';
 import HomeComponent from "./components/HomeComponent";
+import moduleReducer from "./reducers/moduleReducer"
+
+const rootReducer = combineReducers({
+  moduleReducer
+})
+
+const store = createStore(rootReducer)
 
 ReactDOM.render(
-  // <React.StrictMode>
-  //   <App />
-  // </React.StrictMode>
-  <BrowserRouter>
-    {/* <Link to="/courses">Courses</Link> */}
-    
-
-
-    <Route path="/" exact component={HomeComponent}/>
-    <Route path="/courses" exact component={CourseManagerContainer}/>
-    <Route path="/edit/:courseId" exact component={CourseEditorComponent}/>
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
+      {/* <Link to="/courses">Courses</Link> */}
+      <Route path="/" exact component={HomeComponent}/>
+      <Route path="/courses" exact component={CourseManagerContainer}/>
+      <Route path="/edit/:courseId" exact component={CourseEditorComponent}/>
+    </BrowserRouter>
+  </Provider>
   ,
   document.getElementById('root')
 );
