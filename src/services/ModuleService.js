@@ -2,7 +2,7 @@ const url = 'https://wbdv-generic-server.herokuapp.com/api/ericli0303/courses2'
 const modurl = 'https://wbdv-generic-server.herokuapp.com/api/ericli0303/modules'
 
 export const findModule = (moduleId) =>
-    fetch(url).then(response => response.json())
+    fetch(`${modurl}/${moduleId}`).then(response => response.json())
 
 
 export const findModulesForCourse = (courseId) =>

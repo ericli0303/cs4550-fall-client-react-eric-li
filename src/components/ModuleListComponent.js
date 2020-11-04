@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { BrowserRouter, Link, Route } from "react-router-dom";
 import {
   deleteModule,
   createModule,
@@ -13,8 +14,10 @@ const ModuleListComponent = (
   <div class="container col-4">
     <ul class="list-group">
       {
+        
         modules.map(module =>
-          <li class="list-group-item">
+          
+          <li key={module._id} class="list-group-item list-group-item-action">
             {
               module.editing &&
               <span>
@@ -27,7 +30,9 @@ const ModuleListComponent = (
             {
               !module.editing &&
               <span>
-                {module.title}
+                <Link to={`/edit/${course._id}/modules/${module._id}`}>
+                  {module.title}
+                </Link>
                 <button onClick={() => updateModule({...module, editing:true})}>
                   Edit
                 </button>

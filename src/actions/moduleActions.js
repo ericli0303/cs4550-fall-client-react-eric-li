@@ -7,6 +7,13 @@ export const FIND_MODULE_FOR_COURSE = "FIND_MODULE_FOR_COURSE"
 export const FIND_MODULE = "FIND_MODULE"
 
 
+export const findModule = (dispatch, moduleId) =>
+    ModuleService.findModule(moduleId)
+        .then(module =>
+            dispatch({
+                type: FIND_MODULE,
+                moduleId
+            }))
 
 export const deleteModule = (dispatch, module) =>
     ModuleService.deleteModule(module._id)
@@ -18,10 +25,10 @@ export const deleteModule = (dispatch, module) =>
 
 export const createModule = (dispatch, course, module) =>
     ModuleService.createModule(course._id, module)
-        .then(module =>
+        .then(actualModule =>
             dispatch({
                 type: CREATE_MODULE,
-                module
+                module: actualModule
             }))
 
 export const updateModule = (dispatch, module) =>
