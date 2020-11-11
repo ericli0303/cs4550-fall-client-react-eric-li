@@ -9,18 +9,20 @@ import {
     updateWidget,
     saveWidget
 } from "../actions/widgetActions"
+import ImageWidgetComponent from "./ImageWidgetComponent";
+import ListWidgetComponent from "./ListWidgetComponent";
 
 
 const WidgetComponent = (
     { course, moduleId, lessonId, topicId, widgets = [],
-        deleteWidget, createWidget, updateWidget, saveWidget }) =>
+        deleteWidget, createWidget, updateWidget, saveWidget}) =>
 
     <div class="">
         <ul class="list">
             <h5 class="">
                     Preview
                     <label class="switch">
-                    <input type="checkbox" />
+                    <input type="checkbox" id="switchValue"/>
                     <span class="slider round"></span>
                 </label>
             </h5>
@@ -29,11 +31,19 @@ const WidgetComponent = (
                     <div class="border">
                         {
                             widget.type === "Heading" &&
-                            <HeadingWidgetComponent passedWidget={widget} />
+                            <HeadingWidgetComponent passedWidget={widget}/>
                         }
                         {
                             widget.type === "Paragraph" &&
                             <ParagraphWidgetComponent passedWidget={widget} />
+                        }
+                        {
+                            widget.type === "Image" &&
+                            <ImageWidgetComponent passedWidget={widget} />
+                        }
+                        {
+                            widget.type === "List" &&
+                            <ListWidgetComponent passedWidget={widget} />
                         }
                     </div>
                 )
@@ -45,6 +55,7 @@ const WidgetComponent = (
             </form>
         </ul>
     </div>
+
 
 const stateToPropertyMapper = (state) => ({
     widgets: state.widgetReducer.widgets,

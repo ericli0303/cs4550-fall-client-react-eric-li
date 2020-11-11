@@ -10,36 +10,32 @@ import {
 } from "../actions/widgetActions"
 
 
-const HeadingWidgetComponent = (
+const ListWidgetComponent = (
     { course, moduleId, lessonId, topicId, widgets = [], passedWidget,
-        deleteWidget, createWidget, updateWidget, saveWidget, isPreview }) =>
+        deleteWidget, createWidget, updateWidget, saveWidget }) =>
 
     <div class="container">
         <h4>
-            Heading widget
+            List widget
         </h4>
 
-        <WidgetHelperComponent passedWidget={passedWidget}/>
-        {
-            console.log(isPreview)
-        }
+        <WidgetHelperComponent passedWidget={passedWidget} />
 
         <br />
-        <br/>
+        <br />
 
 
         <form>
             <div class="form-group row">
                 <div class="col-sm">
-                    <input class="form-control" value={passedWidget.value} id="heading" placeholder="Heading text" onChange={(event) => updateWidget({ ...passedWidget, value: event.target.value })} />
+                    <textarea class="form-control" rows="4" value={passedWidget.value} id="list" placeholder="Enter each row on a new line" onChange={(event) => updateWidget({ ...passedWidget, value: event.target.value })} />
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm">
                     <select class="form-control" value={passedWidget.style} onChange={(event) => updateWidget({ ...passedWidget, style: event.target.value })}>
-                        <option value="Heading 1">Heading 1</option>
-                        <option value="Heading 2">Heading 2</option>
-                        <option value="Heading 3">Heading 3</option>
+                        <option value="Unordered list">Unordered list 1</option>
+                        <option value="Ordered list">Ordered list 2</option>
                     </select>
                 </div>
             </div>
@@ -56,25 +52,42 @@ const HeadingWidgetComponent = (
             Preview
         </h3>
         {
-            passedWidget.style === "Heading 1" &&
-            <h1>
-                {passedWidget.value}
-            </h1>
+            passedWidget.style === "Unordered list" &&
+            <ul>
+                {
+                    breakString(passedWidget.value).map(line =>
+                        <li>
+                            {line}
+                        </li>
+                    )
+                }
+            </ul>
         }
         {
-            passedWidget.style === "Heading 2" &&
-            <h2>
-                {passedWidget.value}
-            </h2>
-        }
-        {
-            passedWidget.style === "Heading 3" &&
-            <h3>
-                {passedWidget.value}
-            </h3>
+            passedWidget.style === "Ordered list" &&
+            <ol>
+                {
+                    breakString(passedWidget.value).map(line =>
+                        <li>
+                            {line}
+                        </li>
+                    )
+                }
+            </ol>
         }
 
     </div>
+
+const breakString = (text) =>
+{
+    if(text === null) {
+        return [];
+    }
+    else {
+        return text.split("\n");
+    }
+}
+
 
 const stateToPropertyMapper = (state) => ({
     widgets: state.widgetReducer.widgets,
@@ -94,4 +107,4 @@ const propertyToDispatchMapper = (dispatch) => ({
 export default connect
     (stateToPropertyMapper,
         propertyToDispatchMapper)
-    (HeadingWidgetComponent)
+    (ListWidgetComponent)

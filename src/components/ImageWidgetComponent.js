@@ -10,17 +10,17 @@ import {
 } from "../actions/widgetActions"
 
 
-const ParagraphWidgetComponent = (
+const ImageWidgetComponent = (
     { course, moduleId, lessonId, topicId, widgets = [], passedWidget,
         deleteWidget, createWidget, updateWidget, saveWidget }) =>
 
     <div class="container">
         <h4>
-            Paragraph Widget
+            Image Widget
         </h4>
         <WidgetHelperComponent passedWidget={passedWidget}/>
         <br />
-        <br/>
+        <br />
 
 
         <form>
@@ -41,9 +41,8 @@ const ParagraphWidgetComponent = (
         <h3>
             Preview
         </h3>
-        <p>
-            {passedWidget.value}
-        </p>
+        <img src={passedWidget.value} alt="Widget Image">
+        </img>
 
     </div>
 
@@ -65,4 +64,4 @@ const propertyToDispatchMapper = (dispatch) => ({
 export default connect
     (stateToPropertyMapper,
         propertyToDispatchMapper)
-    (ParagraphWidgetComponent)
+    (ImageWidgetComponent)
